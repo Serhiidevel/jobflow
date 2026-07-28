@@ -28,6 +28,21 @@ function App() {
     setStatus('saved')
     setNotes('')
   }
+
+  function handleMarkApplied(jobId: string) {
+    const updatedJobs: Job[] = jobs.map((job) => {
+      if (job.id === jobId) {
+        return {
+          ...job,
+          status: 'applied',
+        }
+      }
+
+      return job
+    })
+
+    setJobs(updatedJobs)
+  }
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-10">
       <div className="mx-auto max-w-5xl">
@@ -93,6 +108,12 @@ function App() {
               {job.location && <p>{job.location}</p>}
               <p>Status: {job.status}</p>
               {job.notes && <p>{job.notes}</p>}
+              <button
+              type="button"
+              onClick={() => handleMarkApplied(job.id)}
+              >
+                Mark as applied
+              </button>
             </article>
           ))}
         </section>
