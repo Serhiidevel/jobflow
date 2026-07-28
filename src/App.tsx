@@ -82,6 +82,20 @@ function App() {
             <button type="submit">Add job</button>
           </form>
         </section>
+        <section>
+          <h2>Job applications</h2>
+
+          {jobs.length === 0 && <p>No applications yet</p>}
+          {jobs.map((job) => (
+            <article key={job.id}>
+              <h3>{job.position}</h3>
+              <p>{job.company}</p>
+              {job.location && <p>{job.location}</p>}
+              <p>Status: {job.status}</p>
+              {job.notes && <p>{job.notes}</p>}
+            </article>
+          ))}
+        </section>
       </div>
     </main>
   )
