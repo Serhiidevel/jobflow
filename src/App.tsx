@@ -29,12 +29,12 @@ function App() {
     setNotes('')
   }
 
-  function handleMarkApplied(jobId: string) {
+  function handleStatusChange(jobId: string, newStatus: JobStatus) {
     const updatedJobs: Job[] = jobs.map((job) => {
       if (job.id === jobId) {
         return {
           ...job,
-          status: 'applied',
+          status: newStatus,
         }
       }
 
@@ -108,12 +108,18 @@ function App() {
               {job.location && <p>{job.location}</p>}
               <p>Status: {job.status}</p>
               {job.notes && <p>{job.notes}</p>}
-              <button
-              type="button"
-              onClick={() => handleMarkApplied(job.id)}
-              >
-                Mark as applied
-              </button>
+              <select
+                value={job.status}
+                onChange={(event) =>
+                  handleStatusChange(job.id, event.target.value as JobStatus)
+                }
+                >
+                  <option value="saved">Saved</option>
+                  <option value="applied">Applied</option>
+                  <option value="interview">Interview</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="offer">Offer</option>
+                </select>
             </article>
           ))}
         </section>
