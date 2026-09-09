@@ -42,6 +42,12 @@ function App() {
     })
 
     setJobs(updatedJobs)
+
+  }
+  function handleDeleteJob(jobId: string) {
+    const remainingJobs = jobs.filter((job) => job.id !== jobId)
+
+    setJobs(remainingJobs)
   }
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-10">
@@ -119,7 +125,12 @@ function App() {
                   <option value="interview">Interview</option>
                   <option value="rejected">Rejected</option>
                   <option value="offer">Offer</option>
-                </select>
+              </select>
+              <button
+              type ="button"
+              onClick={() => handleDeleteJob(job.id)}>
+                Delete
+              </button>
             </article>
           ))}
         </section>
