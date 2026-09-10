@@ -8,6 +8,7 @@ function App() {
   const [status, setStatus] = useState<JobStatus>('saved')
   const [notes, setNotes] = useState('');
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [statusFilter, setStatusFilter] = useState<JobStatus | 'all'>('all')
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -49,6 +50,10 @@ function App() {
 
     setJobs(remainingJobs)
   }
+
+  const visibleJobs = statusFilter === 'all'
+  ? jobs
+  : jobs.filter((job) => job.status === statusFilter)
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-10">
       <div className="mx-auto max-w-5xl">
@@ -61,9 +66,9 @@ function App() {
           <h2>Add job</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="company">Company</label>
-            <input 
-              id="company" 
-              type="text" 
+            <input
+              id="company"
+              type="text"
               value={company}
               onChange={(event) => setCompany(event.target.value)}
             />
@@ -72,7 +77,7 @@ function App() {
               id="position"
               type="text"
               value={position}
-              onChange={(event) => setPosition(event.target.value)} 
+              onChange={(event) => setPosition(event.target.value)}
             />
             <label htmlFor="location">Location</label>
             <input
@@ -82,19 +87,19 @@ function App() {
               onChange={(event) => setLocation(event.target.value)}
             />
             <label htmlFor="status">Status</label>
-              <select
-                id="status"
-                value={status}
-                onChange={(event) => setStatus(event.target.value as JobStatus)}
-              >
-                <option value="saved">Saved</option>
-                <option value="applied">Applied</option>
-                <option value="interview">Interview</option>
-                <option value="rejected">Rejected</option>
-                <option value="offer">Offer</option>
-              </select>
+            <select
+              id="status"
+              value={status}
+              onChange={(event) => setStatus(event.target.value as JobStatus)}
+            >
+              <option value="saved">Saved</option>
+              <option value="applied">Applied</option>
+              <option value="interview">Interview</option>
+              <option value="rejected">Rejected</option>
+              <option value="offer">Offer</option>
+            </select>
             <label htmlFor="notes">Notes</label>
-            <textarea 
+            <textarea
               id="notes"
               rows={4}
               value={notes}
@@ -105,9 +110,24 @@ function App() {
         </section>
         <section>
           <h2>Job applications</h2>
+          <label htmlFor="status-filter">Filter by status</label>
+          <select
+            id="status-filter"
+            value={statusFilter}
+            onChange={(event) =>
+              setStatusFilter(event.target.value as JobStatus | 'all')
+            }
+          >
+            <option value="all">All</option>
+            <option value="saved">Saved</option>
+            <option value="applied">Applied</option>
+            <option value="interview">Interview</option>
+            <option value="rejected">Rejected</option>
+            <option value="offer">Offer</option>
+          </select>
 
-          {jobs.length === 0 && <p>No applications yet</p>}
-          {jobs.map((job) => (
+          {visibleJobs.length === 0 && <p>No matching applications</p>}
+          {visibleJobs.map((job) => (
             <article key={job.id}>
               <h3>{job.position}</h3>
               <p>{job.company}</p>
@@ -119,16 +139,17 @@ function App() {
                 onChange={(event) =>
                   handleStatusChange(job.id, event.target.value as JobStatus)
                 }
-                >
-                  <option value="saved">Saved</option>
-                  <option value="applied">Applied</option>
-                  <option value="interview">Interview</option>
-                  <option value="rejected">Rejected</option>
-                  <option value="offer">Offer</option>
+              >
+                <option value="saved">Saved</option>
+                <option value="applied">Applied</option>
+                <option value="interview">Interview</option>
+                <option value="rejected">Rejected</option>
+                <option value="offer">Offer</option>
               </select>
               <button
-              type ="button"
-              onClick={() => handleDeleteJob(job.id)}>
+                type="button"
+                onClick={() => handleDeleteJob(job.id)}
+              >
                 Delete
               </button>
             </article>
