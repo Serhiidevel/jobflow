@@ -1,4 +1,4 @@
-import { useState, type SubmitEvent } from 'react'
+import { useEffect, useState, type SubmitEvent } from 'react'
 import type { Job, JobStatus } from './types'
 
 function App() {
@@ -7,8 +7,20 @@ function App() {
   const [location, setLocation] = useState('');
   const [status, setStatus] = useState<JobStatus>('saved')
   const [notes, setNotes] = useState('');
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobs, setJobs] = useState<Job[]>(() => {
+    const storedJobs = localStorage.getItem('jobflow-jobs')
+
+    return storedJobs
+      ? (JSON.parse(storedJobs) as Job[])
+      : []
+  })
+
+
+
   const [statusFilter, setStatusFilter] = useState<JobStatus | 'all'>('all')
+  useEffect(() => {
+    localStorage.setItem('jobflow-jobs', JSON.stringify(jobs))
+  }, [jobs])
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
