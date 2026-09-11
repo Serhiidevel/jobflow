@@ -24,14 +24,21 @@ function App() {
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
+    const trimmedCompany = company.trim()
+    const trimmedPosition = position.trim()
+
+    if (!trimmedCompany || !trimmedPosition) {
+      return
+    }
+
     const newJob: Job= {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
-      company,
-      position,
-      location,
+      company: trimmedCompany,
+      position: trimmedPosition,
+      location: location.trim(),
       status,
-      notes,
+      notes: notes.trim(),
     }
 
     setJobs([...jobs, newJob])
@@ -83,6 +90,7 @@ function App() {
               type="text"
               value={company}
               onChange={(event) => setCompany(event.target.value)}
+              required
             />
             <label htmlFor="position">Position</label>
             <input
@@ -90,6 +98,7 @@ function App() {
               type="text"
               value={position}
               onChange={(event) => setPosition(event.target.value)}
+              required
             />
             <label htmlFor="location">Location</label>
             <input
