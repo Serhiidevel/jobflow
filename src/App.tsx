@@ -1,3 +1,4 @@
+import JobCard from './components/JobCard'
 import { useEffect, useState, type SubmitEvent } from 'react'
 import type { Job, JobStatus } from './types'
 
@@ -149,31 +150,13 @@ function App() {
 
           {visibleJobs.length === 0 && <p>No matching applications</p>}
           {visibleJobs.map((job) => (
-            <article key={job.id}>
-              <h3>{job.position}</h3>
-              <p>{job.company}</p>
-              {job.location && <p>{job.location}</p>}
-              <p>Status: {job.status}</p>
-              {job.notes && <p>{job.notes}</p>}
-              <select
-                value={job.status}
-                onChange={(event) =>
-                  handleStatusChange(job.id, event.target.value as JobStatus)
-                }
-              >
-                <option value="saved">Saved</option>
-                <option value="applied">Applied</option>
-                <option value="interview">Interview</option>
-                <option value="rejected">Rejected</option>
-                <option value="offer">Offer</option>
-              </select>
-              <button
-                type="button"
-                onClick={() => handleDeleteJob(job.id)}
-              >
-                Delete
-              </button>
-            </article>
+            <JobCard
+            key={job.id}
+            job={job}
+            onStatusChange={handleStatusChange}
+            onDelete={handleDeleteJob}
+          />
+            
           ))}
         </section>
       </div>
