@@ -1,4 +1,5 @@
 import JobCard from './components/JobCard'
+import StatusFilter from './components/StatusFilter'
 import { useEffect, useState, type SubmitEvent } from 'react'
 import type { Job, JobStatus } from './types'
 
@@ -132,22 +133,10 @@ function App() {
         </section>
         <section>
           <h2>Job applications</h2>
-          <label htmlFor="status-filter">Filter by status</label>
-          <select
-            id="status-filter"
+          <StatusFilter
             value={statusFilter}
-            onChange={(event) =>
-              setStatusFilter(event.target.value as JobStatus | 'all')
-            }
-          >
-            <option value="all">All</option>
-            <option value="saved">Saved</option>
-            <option value="applied">Applied</option>
-            <option value="interview">Interview</option>
-            <option value="rejected">Rejected</option>
-            <option value="offer">Offer</option>
-          </select>
-
+            onChange={setStatusFilter}
+          />
           {visibleJobs.length === 0 && <p>No matching applications</p>}
           {visibleJobs.map((job) => (
             <JobCard
