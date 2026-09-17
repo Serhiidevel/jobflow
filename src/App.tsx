@@ -55,16 +55,16 @@ function App() {
         <header>
           <h1 className="text-3xl font-bold text-slate-900">JobFlow</h1>
           <p className="mt-2 text-slate-600">Track your job applications in one place</p>
-          <p>{jobs.length} applications tracked</p>
+          <p className='mt-3 text-sm font-medium text-slate-500'>{jobs.length} applications tracked</p>
         </header>
         <JobForm onAddJob={handleAddJob} />
-        <section>
-          <h2>Job applications</h2>
+        <section className='mt-8'>
+          <h2 className='text-xl font-semibold text-slate-900'>Job applications</h2>
           <StatusFilter
             value={statusFilter}
             onChange={setStatusFilter}
           />
-          {visibleJobs.length === 0 && <p>No matching applications</p>}
+          {visibleJobs.length === 0 && <p className='mt-4 rounded-lg bg-white p-4 text-sm text-slate-500'>No matching applications</p>}
           {visibleJobs.map((job) => (
             <JobCard
             key={job.id}

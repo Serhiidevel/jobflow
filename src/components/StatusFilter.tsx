@@ -10,12 +10,15 @@ function StatusFilter({
   onChange,
 }: StatusFilterProps) {
   return (
-    <div>
-      <label htmlFor="status-filter">
+    <div className='mt-4 flex flex-col gap-2'>
+      <label
+       className='text-sm font-medium text-slate-700'
+       htmlFor="status-filter">
         Filter by status
       </label>
 
       <select
+        className='rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none'
         id="status-filter"
         value={value}
         onChange={(event) =>
