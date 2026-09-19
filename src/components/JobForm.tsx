@@ -12,6 +12,7 @@ function JobForm({ onAddJob }: JobFormProps) {
   const [status, setStatus] =
     useState<JobStatus>('saved')
   const [notes, setNotes] = useState('')
+  const [formError, setFormError] = useState('')
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -19,8 +20,11 @@ function JobForm({ onAddJob }: JobFormProps) {
     const trimmedPosition = position.trim()
 
     if (!trimmedCompany || !trimmedPosition) {
+      setFormError('Company and position cannot contain only spaces.')
       return
     }
+
+    setFormError('')
 
     const newJob: Job = {
       id: crypto.randomUUID(),
@@ -103,6 +107,14 @@ function JobForm({ onAddJob }: JobFormProps) {
           value={notes}
           onChange={(event) => setNotes(event.target.value)}
         ></textarea>
+        {formError && (
+          <p
+            className="rounded-lg bg-red-50 p-3 text-sm text-red-700"
+            role="alert"
+          >
+            {formError}
+          </p>
+        )}
         <button
           className="mt-3 cursor-pointer rounded-lg bg-blue-600 px-4 py-2.5 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-800"
           type="submit">Add job</button>
