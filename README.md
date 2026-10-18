@@ -1,75 +1,46 @@
-# React + TypeScript + Vite
+# JobFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React app for tracking job applications. Add a company and position, keep notes, and update the status as you hear back.
 
-Currently, two official plugins are available:
+I built this project to practise React and TypeScript, from handling forms and sharing state between components to writing tests and setting up CI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Built with React, TypeScript, Vite, and Tailwind CSS. Tests use Vitest and React Testing Library.
 
-## React Compiler
+## Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Use Node.js 22.12 or later in the Node 22 release line, and npm.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/Serhiidevel/jobflow.git
+cd jobflow
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open the local address printed in the terminal.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Enter a company and position to add an application. Location and notes are optional. Each application has a status: Saved, Applied, Interview, Rejected, or Offer.
 
+You can change the status on its card, filter the list by status, or delete an application.
+
+Applications are stored in your browser using localStorage, so they remain after a refresh. There is no account or server: data does not sync between browsers or devices, and clearing the site's browser data removes it.
+
+## Checks
+
+```bash
+npm run lint
+npm run test:run
+npm run build
 ```
+
+The tests cover form rendering and submission, status changes, filtering, and saving applications to localStorage. GitHub Actions runs these checks on pushes and pull requests to main.
+
+## Contributing
+
+This is a personal learning project. If you find a bug, you can open an issue with the steps to reproduce it.
+
+## License
+
+No license has been added yet.
