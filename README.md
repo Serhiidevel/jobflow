@@ -1,5 +1,7 @@
 # JobFlow
 
+[Open JobFlow](https://jobflow-drab-kappa.vercel.app/)
+
 A small React app for tracking job applications. Add a company and position, keep notes, and update the status as you hear back.
 
 I built this project to practise React and TypeScript, from handling forms and sharing state between components to writing tests and setting up CI.
